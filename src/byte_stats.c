@@ -9,7 +9,7 @@
 ByteStats analyzeFile(const char* file_name) {
     ByteStats stats;
     stats.total_bytes = 0;
-    stats.total_lines = 1;
+    stats.total_lines = 0;
 
     FILE* file_ptr = fopen(file_name, "rb");
 
@@ -19,7 +19,11 @@ ByteStats analyzeFile(const char* file_name) {
     }
 
     int file_char = fgetc(file_ptr);
-
+    
+    if (file_char != EOF) {
+        stats.total_lines = 1;
+    }
+    
     while (file_char != EOF) {
         stats.total_bytes++;
 

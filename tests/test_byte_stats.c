@@ -10,6 +10,7 @@ int main() {
     // Test 1: Empty files
     ByteStats stats1 = analyzeFile("tests/test_01.txt");
     assert(stats1.total_bytes == 0);
+    assert(stats1.total_lines == 0);
 
     // Test 2: Basic counting ("hello")
     ByteStats stats2 = analyzeFile("tests/test_02.txt");
