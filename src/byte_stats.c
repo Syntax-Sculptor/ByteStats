@@ -26,13 +26,12 @@ ByteStats analyzeFile(const char* file_name) {
         stats.total_bytes++;
         read_any_bytes = 1;
 
-        if (is_last_byte_new_line) {
-            stats.total_lines++;
-            is_last_byte_new_line = 0;
-        }
-        
         if (file_char == '\n') {
             is_last_byte_new_line = 1;
+        }
+        else if (is_last_byte_new_line) {
+            stats.total_lines++;
+            is_last_byte_new_line = 0;
         }
 
         file_char = fgetc(file_ptr);
