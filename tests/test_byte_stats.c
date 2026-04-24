@@ -11,5 +11,9 @@ int main() {
     ByteStats stats1 = analyzeFile("tests/test_01.txt");
     assert(stats1.total_bytes == 0);
 
+    // Test 2: Basic counting ("hello")
+    ByteStats stats2 = analyzeFile("tests/test_02.txt");
+    assert(stats2.total_bytes == 5);
+
     return EXIT_SUCCESS;
 }
