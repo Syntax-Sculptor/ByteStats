@@ -3,12 +3,13 @@
 // Date: 4/23/2026
 
 #include <stdlib.h>
+#include <assert.h>
 #include "byte_stats.h"
 
 int main() {
-    ByteStats stats;
-    stats.total_bytes = 0;
+    // Test 1: Empty files
+    ByteStats stats1 = analyzeFile("tests/test_01.txt");
+    assert(stats1.total_bytes == 0);
 
-    // TODO: Add some cool tests.
     return EXIT_SUCCESS;
 }
