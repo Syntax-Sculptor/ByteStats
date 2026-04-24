@@ -20,5 +20,9 @@ int main() {
     ByteStats stats3 = analyzeFile("tests/test_03.txt");
     assert(stats3.total_lines == 2);
 
+    // Test 4: Not counting trailing newlines
+    ByteStats stats4 = analyzeFile("tests/test_04.txt");
+    assert(stats4.total_lines == 1);
+
     return EXIT_SUCCESS;
 }
