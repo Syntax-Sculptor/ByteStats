@@ -24,5 +24,9 @@ int main() {
     ByteStats stats4 = analyzeFile("tests/test_04.txt");
     assert(stats4.total_lines == 1);
 
+    // Test 5: \n only
+    ByteStats stats5 = analyzeFile("tests/test_05.txt");
+    assert(stats5.total_lines == 1);
+
     return EXIT_SUCCESS;
 }
