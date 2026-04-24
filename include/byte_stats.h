@@ -7,6 +7,7 @@
 
 typedef struct {
     long total_bytes;
+    long total_lines;
 } ByteStats;
 
 ByteStats analyzeFile(const char* file_name);

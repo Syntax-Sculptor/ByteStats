@@ -9,6 +9,7 @@
 ByteStats analyzeFile(const char* file_name) {
     ByteStats stats;
     stats.total_bytes = 0;
+    stats.total_lines = 1;
 
     FILE* file_ptr = fopen(file_name, "rb");
 
@@ -21,6 +22,11 @@ ByteStats analyzeFile(const char* file_name) {
 
     while (file_char != EOF) {
         stats.total_bytes++;
+
+        if (file_char == '\n') {
+            stats.total_lines++;
+        } 
+
         file_char = fgetc(file_ptr);
     }
     
