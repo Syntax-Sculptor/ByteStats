@@ -21,7 +21,7 @@ int main() {
 
     // Test 4: Single line with trailing newline ("hello\n")
     ByteStats stats4 = analyzeFile("tests/test_04");
-    assert(stats4.total_lines == 1 && stats4.total_bytes == 6);
+    assert(stats4.total_lines == 1 && stats4.total_bytes == 6 && stats4.printable_ascii == 5);
 
     // Test 5: Two lines without trailing newline ("hello\\nworld")
     ByteStats stats5 = analyzeFile("tests/test_05");
