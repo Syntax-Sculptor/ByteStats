@@ -9,6 +9,7 @@ typedef struct {
     long total_bytes;
     long total_lines;
     long printable_ascii;
+    long non_ascii;
 } ByteStats;
 
 ByteStats analyzeFile(const char* file_name);

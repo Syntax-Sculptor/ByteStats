@@ -37,6 +37,9 @@ ByteStats analyzeFile(const char* file_name) {
         if (file_char >= 32 && file_char <= 126) {
             stats.printable_ascii++;
         }
+        else if (file_char > 126) {
+            stats.non_ascii++;
+        }
 
         file_char = next_char;
     }
