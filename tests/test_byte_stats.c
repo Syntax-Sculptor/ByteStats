@@ -196,7 +196,7 @@ int main() {
     testFileContainingOnlyOneNewline();
     testSingleLineWithTrailingNewLine();
     testTwoLinesWithoutTrailingNewLine();
-    testTwoLinesWithoutTrailingNewLine();
+    testTwoEmptyLines();
     testNonAsciiByte();
     testMixedAscii();
     
