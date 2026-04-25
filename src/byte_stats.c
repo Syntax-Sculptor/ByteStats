@@ -19,22 +19,20 @@ ByteStats analyzeFile(const char* file_name) {
     }
 
     int file_char = fgetc(file_ptr);
-    int is_last_byte_new_line = 0;
     int read_any_bytes = 0;
 
     while (file_char != EOF) {
         stats.total_bytes++;
         read_any_bytes = 1;
 
-        if (file_char == '\n') {
-            is_last_byte_new_line = 1;
-        }
-        else if (is_last_byte_new_line) {
+        int next_char = fgetc(file_ptr);
+       
+        // Ignore trailing newlines.
+        if (file_char == '\n' && next_char != EOF) {
             stats.total_lines++;
-            is_last_byte_new_line = 0;
         }
 
-        file_char = fgetc(file_ptr);
+        file_char = next_char;
     }
 
     if (read_any_bytes) {
