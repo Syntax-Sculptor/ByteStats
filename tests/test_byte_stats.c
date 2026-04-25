@@ -51,6 +51,10 @@ int main() {
     ByteStats stats7 = analyzeFile("tests/test_07");
     testStats(&stats7, "test7", 1, 1, 0, 1);
 
+    // Test 8: Mixed printable ASCII + newline + non-ASCII
+    ByteStats stats8 = analyzeFile("tests/test_08");
+    testStats(&stats8, "test8", 3, 2, 1, 1);
+    
     printf("All unit tests passed :)\n");
 
     return EXIT_SUCCESS;
