@@ -10,6 +10,7 @@ ByteStats analyzeFile(const char* file_name) {
     ByteStats stats;
     stats.total_bytes = 0;
     stats.total_lines = 0;
+    stats.printable_ascii = 0;
 
     FILE* file_ptr = fopen(file_name, "rb");
 
@@ -30,6 +31,11 @@ ByteStats analyzeFile(const char* file_name) {
         // Ignore trailing newlines.
         if (file_char == '\n' && next_char != EOF) {
             stats.total_lines++;
+        }
+
+        // Range of printable characters
+        if (file_char >= 32 && file_char <= 126) {
+            stats.printable_ascii++;
         }
 
         file_char = next_char;

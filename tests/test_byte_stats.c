@@ -13,7 +13,7 @@ int main() {
 
     // Test 2: Single line without trailing newline ("hello")
     ByteStats stats2 = analyzeFile("tests/test_02");
-    assert(stats2.total_bytes == 5 && stats2.total_lines == 1);
+    assert(stats2.total_bytes == 5 && stats2.total_lines == 1 && stats2.printable_ascii == 5);
 
     // Test 3: File containing only one newline
     ByteStats stats3 = analyzeFile("tests/test_03");
