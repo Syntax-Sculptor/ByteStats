@@ -47,6 +47,10 @@ int main() {
     ByteStats stats6 = analyzeFile("tests/test_06");
     testStats(&stats6, "test6", 2, 2, 0, 0);
 
+    // Test 7: Non-ascii bytes
+    ByteStats stats7 = analyzeFile("tests/test_07");
+    testStats(&stats7, "test7", 1, 1, 0, 1);
+
     printf("All unit tests passed :)\n");
 
     return EXIT_SUCCESS;
