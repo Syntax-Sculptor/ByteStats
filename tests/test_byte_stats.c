@@ -8,8 +8,8 @@
 #include <stdio.h>
 
 void testStats(
-    ByteStats *stats,
-    char* test_name,
+    const ByteStats *stats,
+    const char* test_name,
     long total_bytes, 
     long total_lines, 
     long printable_ascii, 
