@@ -22,38 +22,183 @@ void testStats(
     assert(stats->total_bytes == total_bytes);
 }
 
+void testEmptyFileHasZeroCounts() {
+    // Setup
+    long expected_total_bytes = 0;
+    long expected_total_lines = 0;
+    long expected_total_printable_ascii_chars = 0;
+    long expected_total_non_ascii_bytes = 0;
+
+    // Exercise
+    ByteStats stats = analyzeFile("tests/test_01");
+
+    // Verify
+    testStats(
+        &stats, 
+        "emptyFileHasZeroCounts", 
+        expected_total_bytes, 
+        expected_total_lines, 
+        expected_total_printable_ascii_chars, 
+        expected_total_non_ascii_bytes
+    );
+}
+
+void testSingleLineWithoutTrailingNewLine() {
+    // Setup
+    long expected_total_bytes = 5;
+    long expected_total_lines = 1;
+    long expected_total_printable_ascii_chars = 5;
+    long expected_total_non_ascii_bytes = 0;
+
+    // Exercise
+    ByteStats stats = analyzeFile("tests/test_02");
+
+    // Verify
+    testStats(
+        &stats, 
+        "singleLineWithoutTrailingNewLine", 
+        expected_total_bytes, 
+        expected_total_lines, 
+        expected_total_printable_ascii_chars, 
+        expected_total_non_ascii_bytes
+    );
+}
+
+void testFileContainingOnlyOneNewline() {
+    // Setup
+    long expected_total_bytes = 1;
+    long expected_total_lines = 1;
+    long expected_total_printable_ascii_chars = 0;
+    long expected_total_non_ascii_bytes = 0;
+
+    // Exercise
+    ByteStats stats = analyzeFile("tests/test_03");
+
+    // Verify
+    testStats(
+        &stats, 
+        "fileContainingOnlyOneNewLine", 
+        expected_total_bytes, 
+        expected_total_lines, 
+        expected_total_printable_ascii_chars, 
+        expected_total_non_ascii_bytes
+    );
+}
+
+void testSingleLineWithTrailingNewLine() {
+    // Setup
+    long expected_total_bytes = 6;
+    long expected_total_lines = 1;
+    long expected_total_printable_ascii_chars = 5;
+    long expected_total_non_ascii_bytes = 0;
+
+    // Exercise
+    ByteStats stats = analyzeFile("tests/test_04");
+
+    // Verify
+    testStats(
+        &stats, 
+        "singleLineWithTrailingNewLine", 
+        expected_total_bytes, 
+        expected_total_lines, 
+        expected_total_printable_ascii_chars, 
+        expected_total_non_ascii_bytes
+    );
+}
+
+void testTwoLinesWithoutTrailingNewLine() {
+    // Setup
+    long expected_total_bytes = 11;
+    long expected_total_lines = 2;
+    long expected_total_printable_ascii_chars = 10;
+    long expected_total_non_ascii_bytes = 0;
+
+    // Exercise
+    ByteStats stats = analyzeFile("tests/test_05");
+
+    // Verify
+    testStats(
+        &stats, 
+        "twoLinesWithoutTrailingNewLine", 
+        expected_total_bytes, 
+        expected_total_lines, 
+        expected_total_printable_ascii_chars, 
+        expected_total_non_ascii_bytes
+    );
+}
+
+void testTwoEmptyLines() {
+    // Setup
+    long expected_total_bytes = 2;
+    long expected_total_lines = 2;
+    long expected_total_printable_ascii_chars = 0;
+    long expected_total_non_ascii_bytes = 0;
+
+    // Exercise
+    ByteStats stats = analyzeFile("tests/test_06");
+
+    // Verify
+    testStats(
+        &stats, 
+        "twoEmptyLines", 
+        expected_total_bytes, 
+        expected_total_lines, 
+        expected_total_printable_ascii_chars, 
+        expected_total_non_ascii_bytes
+    );  
+}
+
+void testNonAsciiByte() {
+    // Setup
+    long expected_total_bytes = 1;
+    long expected_total_lines = 1;
+    long expected_total_printable_ascii_chars = 0;
+    long expected_total_non_ascii_bytes = 1;
+
+    // Exercise
+    ByteStats stats = analyzeFile("tests/test_07");
+
+    // Verify
+    testStats(
+        &stats, 
+        "nonAsciiByte", 
+        expected_total_bytes, 
+        expected_total_lines, 
+        expected_total_printable_ascii_chars, 
+        expected_total_non_ascii_bytes
+    );   
+}
+
+void testMixedAscii() {
+    // Setup
+    long expected_total_bytes = 3;
+    long expected_total_lines = 2;
+    long expected_total_printable_ascii_chars = 1;
+    long expected_total_non_ascii_bytes = 1;
+
+    // Exercise
+    ByteStats stats = analyzeFile("tests/test_08");
+
+    // Verify
+    testStats(
+        &stats, 
+        "mixedAscii", 
+        expected_total_bytes, 
+        expected_total_lines, 
+        expected_total_printable_ascii_chars, 
+        expected_total_non_ascii_bytes
+    );   
+}
+
 int main() {
-    // Test 1: Empty file
-    ByteStats stats1 = analyzeFile("tests/test_01");
-    testStats(&stats1, "test1", 0, 0, 0, 0);
-
-    // Test 2: Single line without trailing newline ("hello")
-    ByteStats stats2 = analyzeFile("tests/test_02");
-    testStats(&stats2, "test2", 5, 1, 5, 0);
-
-    // Test 3: File containing only one newline
-    ByteStats stats3 = analyzeFile("tests/test_03");
-    testStats(&stats3, "test3", 1, 1, 0, 0);
-
-    // Test 4: Single line with trailing newline ("hello\n")
-    ByteStats stats4 = analyzeFile("tests/test_04");
-    testStats(&stats4, "test4", 6, 1, 5, 0);
-
-    // Test 5: Two lines without trailing newline ("hello\nworld")
-    ByteStats stats5 = analyzeFile("tests/test_05");
-    testStats(&stats5, "test5", 11, 2, 10, 0);
-
-    // Test 6: Two empty lines
-    ByteStats stats6 = analyzeFile("tests/test_06");
-    testStats(&stats6, "test6", 2, 2, 0, 0);
-
-    // Test 7: Non-ascii bytes
-    ByteStats stats7 = analyzeFile("tests/test_07");
-    testStats(&stats7, "test7", 1, 1, 0, 1);
-
-    // Test 8: Mixed printable ASCII + newline + non-ASCII
-    ByteStats stats8 = analyzeFile("tests/test_08");
-    testStats(&stats8, "test8", 3, 2, 1, 1);
+    testEmptyFileHasZeroCounts();
+    testSingleLineWithoutTrailingNewLine();
+    testFileContainingOnlyOneNewline();
+    testSingleLineWithTrailingNewLine();
+    testTwoLinesWithoutTrailingNewLine();
+    testTwoLinesWithoutTrailingNewLine();
+    testNonAsciiByte();
+    testMixedAscii();
     
     printf("All unit tests passed :)\n");
 
