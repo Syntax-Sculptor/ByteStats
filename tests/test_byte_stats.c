@@ -5,30 +5,49 @@
 #include <stdlib.h>
 #include <assert.h>
 #include "byte_stats.h"
+#include <stdio.h>
+
+void testStats(
+    ByteStats *stats,
+    char* test_name,
+    long total_bytes, 
+    long total_lines, 
+    long printable_ascii, 
+    long non_ascii_bytes
+) {
+    printf("Now testing unit %s\n", test_name);
+    assert(stats->non_ascii_bytes == non_ascii_bytes);
+    assert(stats->printable_ascii == printable_ascii);
+    assert(stats->total_lines == total_lines);
+    assert(stats->total_bytes == total_bytes);
+}
 
 int main() {
     // Test 1: Empty file
     ByteStats stats1 = analyzeFile("tests/test_01");
-    assert(stats1.total_bytes == 0 && stats1.total_lines == 0);
+    testStats(&stats1, "test1", 0, 0, 0, 0);
 
     // Test 2: Single line without trailing newline ("hello")
     ByteStats stats2 = analyzeFile("tests/test_02");
-    assert(stats2.total_bytes == 5 && stats2.total_lines == 1 && stats2.printable_ascii == 5);
+    testStats(&stats2, "test2", 5, 1, 5, 0);
 
     // Test 3: File containing only one newline
     ByteStats stats3 = analyzeFile("tests/test_03");
-    assert(stats3.total_lines == 1 && stats3.total_bytes == 1);
+    testStats(&stats3, "test3", 1, 1, 0, 0);
 
     // Test 4: Single line with trailing newline ("hello\n")
     ByteStats stats4 = analyzeFile("tests/test_04");
-    assert(stats4.total_lines == 1 && stats4.total_bytes == 6 && stats4.printable_ascii == 5);
+    testStats(&stats4, "test4", 6, 1, 5, 0);
 
-    // Test 5: Two lines without trailing newline ("hello\\nworld")
+    // Test 5: Two lines without trailing newline ("hello\nworld")
     ByteStats stats5 = analyzeFile("tests/test_05");
-    assert(stats5.total_lines == 2 && stats5.total_bytes == 11);
+    testStats(&stats5, "test5", 11, 2, 10, 0);
 
     // Test 6: Two empty lines
     ByteStats stats6 = analyzeFile("tests/test_06");
-    assert(stats6.total_lines == 2 && stats6.total_bytes == 2);
+    testStats(&stats6, "test6", 2, 2, 0, 0);
+
+    printf("All unit tests passed :)\n");
+
     return EXIT_SUCCESS;
 }

@@ -10,6 +10,7 @@ ByteStats analyzeFile(const char* file_name) {
     ByteStats stats;
     stats.total_bytes = 0;
     stats.total_lines = 0;
+    stats.non_ascii_bytes = 0;
     stats.printable_ascii = 0;
 
     FILE* file_ptr = fopen(file_name, "rb");
@@ -38,7 +39,7 @@ ByteStats analyzeFile(const char* file_name) {
             stats.printable_ascii++;
         }
         else if (file_char > 126) {
-            stats.non_ascii++;
+            stats.non_ascii_bytes++;
         }
 
         file_char = next_char;
